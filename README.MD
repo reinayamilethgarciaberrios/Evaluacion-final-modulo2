@@ -109,3 +109,4 @@ Este servicio se llama `raza` y utiliza la imagen construida en el directorio `.
 
 Falto funcionamiento en el ejercicio 3,
 funcionan 1,2,4
+me falto de realizar el ejercicio 5
