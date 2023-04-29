@@ -27,8 +27,32 @@ router.get("/", (req, res) => {
       return res.send(response);
     });
 });
+//ejercicio 1
+router.get("/color/:colorYtamano", (req, res) => {
+  const [color, tamano] = req.params.colorYtamano.split(",");
+  const results = [];
+  const data = "./data/raza_info.csv"
 
-// Obtener las razas por pais y todos los datos de premio, raza, perro
+  fs.createReadStream(data)
+    .pipe(csv())
+    .on('data', (data) => {
+      if(data.color_de_pelo.includes(color) && data.tamanio_de_pelo.includes(tamano)){
+        results.push(data)
+      }
+    })
+    .on('end', () => {
+
+      const response = {
+        service: "raza",
+        architecture: "microservices",
+        raza: results
+      };
+      logger("Get raza data");
+      return res.send(response);
+    });
+});
+
+//  ejercicio -4 Obtener las razas por pais y todos los datos de premio, raza, perro
 router.get("/paisorigen/:pais_de_origen", async (req, res) => {
   const pais_de_origen = req.params.pais_de_origen;
   const results = [];

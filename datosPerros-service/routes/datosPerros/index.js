@@ -61,5 +61,20 @@ router.get("/raza/:raza", (req, res) => {
   return res.send(response);
 });
 
+// ejercicio 2
+router.get("/promedio/:raza", async(req, res) => {
+  const perros = data.dataPerros.perros;
+  // const datosPerros = perros.perros.filter(perro => perro.raza === req.params.raza);
+  // const sumaPeso = datosPerros.reduce((acc, perro) => acc + perro.peso, 0);
+  // const totalPerros = datosPerros.length;
+
+  const response = {
+    "Promedio total del peso de perros": sumaPeso/totalPerros,
+    //datosPerros
+    perros
+
+  };
+  return res.send(response);
+});
 
 module.exports = router;
