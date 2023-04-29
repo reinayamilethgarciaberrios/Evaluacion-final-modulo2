@@ -23,4 +23,23 @@ router.get("/", (req, res) => {
   return res.send(response);
 });
 
+// Obtener detalles de un perro por el nombre
+router.get("/detalleperro/:nombre", (req, res) => {
+  const perroNombre = req.params.nombre;
+  let perroEncontrado = [];
+
+  if (data.perro_nombre.includes(req.params.perro_nombre)) {
+    results.push(data);
+  }
+  if (perroEncontrado) {
+    const response = {
+      service: "Datos de perros",
+      architecture: "microservices",
+      data: perroEncontrado,
+    };
+    return res.send(response);
+  } else {
+    return res.status(404).send("No se encontró ningún perro con ese nombre.");
+  }
+});
 module.exports = router;
