@@ -1,0 +1,89 @@
+{
+	"info": {
+		"_postman_id": "070a0e61-e89e-4478-86b4-2d04a0c793f0",
+		"name": "Evaluacion-final-modulo2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26435004"
+	},
+	"item": [
+		{
+			"name": "Perros",
+			"item": [
+				{
+					"name": "Nombre de perro y informacion del perro y los premios",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v2/datosperros/nombre/Lucky",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v2",
+								"datosperros",
+								"nombre",
+								"Lucky"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Raza",
+			"item": [
+				{
+					"name": "Pais-origen-dueño",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v2/raza/paisorigen/Croacia",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v2",
+								"raza",
+								"paisorigen",
+								"Croacia"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Razas por color de pelo y tamanio",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v2/raza/color/Blanco,Corto,",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v2",
+								"raza",
+								"color",
+								"Blanco,Corto,"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
