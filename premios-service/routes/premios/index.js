@@ -17,8 +17,7 @@ router.get("/", async(req, res)=>{
     }
     res.send(response);
 })
-
-router.get("/:id", async(req, res)=>{
+router.get("/", async(req, res)=>{
     const id = req.params.id;
     const premios = await Premios.findByPk(id);
     const response = {
@@ -27,25 +26,33 @@ router.get("/:id", async(req, res)=>{
     res.send(response);
 })
 
-// Obtener todos los premios ganados en un país específico y los datos de los perros
-router.get("/pais/:pais", async(req, res)=>{
-    const pais = req.params.pais;
+router.get("/:id", async(req, res)=>{
+    const Op = Sequelize.Op;
+    const id = req.params.id.split(",");
     const premios = await Premios.findAll({
         where: {
-            pais_competencia: pais
+          id: {
+            [
+      Op.in
+      ]: id
+          }
         }
     });
-    const  id_campeon= premios.map(premio => premio.id_campeon)
-    const url1 = "http://datosperros:3000/api/v2/datosperros/detalleperro/";
-    const datosPerro = await fetch(url1 +id_campeon.join(",")).then(response => response.json());
-    const razas = datosPerro.data.map(raza => raza.raza);
-    const url2 = "http://raza:5000/api/v2/raza/raza/"
-    const datosRaza = await fetch(url2 +razas.join(",")).then(response => response.json());
     const response = {
-        premios,
-        datosRaza
+        
+        premios
+        
     }
     res.send(response);
 })
 
+router.get("/idCampeon/:id", async(req, res)=>{
+    const reqId = req.params.id.split(",");
+    let campeonatos = await Campeonatos.findAll();
+    campeonatos = campeonatos.filter(campeonato => reqId.includes(String(campeonato.id_campeon)));
+    const response = {
+        campeonatos
+    }
+    res.send(response);
+})
 module.exports = router;

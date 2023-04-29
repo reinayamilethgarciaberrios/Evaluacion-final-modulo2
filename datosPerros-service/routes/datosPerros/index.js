@@ -23,30 +23,43 @@ router.get("/", (req, res) => {
   return res.send(response);
 });
 
-// Obtener detalles de un perro específico por Id o varios Id
-router.get("/detalleperro/:id", (req, res) => {
-  const perroId = req.params.id.split(",");
-  let perroEncontrado = [];
 
-  if(perroId.length){
-    for(let i = 0; i < perroId.length; i++){
-      let perro = data.dataPerros.perros.find(p => p.Id == parseInt(perroId[i]));
-      if(perro) perroEncontrado.push(perro);
-    }
+// este es del item 3
+router.get("/nombre/:nombre", async(req, res) => {
+  const nombre = req.params.nombre.split(",");
+  let perrosFiltrados = data.dataPerros.perros;
+  if (nombre) {
+    perrosFiltrados = perrosFiltrados.filter(
+      (perro) => perro.nombre_perro = nombre
+    );
   }
-  if (perroEncontrado) {
-    const response = {
-      service: "Datos de perros",
-      architecture: "microservices",
-      data: perroEncontrado,
-    };
-    return res.send(response);
-  } else {
-    return res.status(404).send("No se encontró ningún perro con ese ID.");
-  }
+  const idCampeon = perrosFiltrados.map(p => p.Id);
+  const url = "http://premios:4000/api/v2/premios/idCampeon/"
+  perrosFiltrados = await fetch(url+idCampeon).then(response => response.json());
+  const response = {
+    service: "Perros por nombre",
+    architecture: "microservices",
+    data: perrosFiltrados,
+  };
+  return res.send(response);
 });
 
-
+// filtro perros por raza
+router.get("/raza/:raza", (req, res) => {
+  const raza = req.params.raza.split(",");
+  let perrosFiltrados = data.dataPerros.perros;
+  if (raza) {
+    perrosFiltrados = perrosFiltrados.filter(
+      (perro) => raza.some(p => perro.raza.includes(p)) 
+    );
+  }
+  const response = {
+    service: "Perros por raza",
+    architecture: "microservices",
+    data: perrosFiltrados,
+  };
+  return res.send(response);
+});
 
 
 module.exports = router;

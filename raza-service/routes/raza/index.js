@@ -28,12 +28,12 @@ router.get("/", (req, res) => {
     });
 });
 
-// eneunciado 3 Obtener las razas por pais y todos los datos de premio, raza, perro
+// Obtener las razas por pais y todos los datos de premio, raza, perro
 router.get("/paisorigen/:pais_de_origen", async (req, res) => {
   const pais_de_origen = req.params.pais_de_origen;
   const results = [];
   const data = "./data/raza_info.csv";
-  const url2 = "http://premios:4000/api/v2/premios/id/"
+  const url2 = "http://premios:4000/api/v2/premios/"
   const url1 = "http://datosperros:3000/api/v2/datosperros/raza/";
   let result;
   let datosPerros;
