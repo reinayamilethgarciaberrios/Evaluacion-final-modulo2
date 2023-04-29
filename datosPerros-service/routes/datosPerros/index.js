@@ -23,13 +23,16 @@ router.get("/", (req, res) => {
   return res.send(response);
 });
 
-// Obtener detalles de un perro por el nombre
-router.get("/detalleperro/:nombre", (req, res) => {
-  const perroNombre = req.params.nombre;
+// Obtener detalles de un perro específico por Id o varios Id
+router.get("/detalleperro/:id", (req, res) => {
+  const perroId = req.params.id.split(",");
   let perroEncontrado = [];
 
-  if (data.perro_nombre.includes(req.params.perro_nombre)) {
-    results.push(data);
+  if(perroId.length){
+    for(let i = 0; i < perroId.length; i++){
+      let perro = data.dataPerros.perros.find(p => p.Id == parseInt(perroId[i]));
+      if(perro) perroEncontrado.push(perro);
+    }
   }
   if (perroEncontrado) {
     const response = {
@@ -39,7 +42,11 @@ router.get("/detalleperro/:nombre", (req, res) => {
     };
     return res.send(response);
   } else {
-    return res.status(404).send("No se encontró ningún perro con ese nombre.");
+    return res.status(404).send("No se encontró ningún perro con ese ID.");
   }
 });
+
+
+
+
 module.exports = router;

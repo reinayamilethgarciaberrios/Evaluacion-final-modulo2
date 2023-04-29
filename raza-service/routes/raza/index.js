@@ -28,6 +28,43 @@ router.get("/", (req, res) => {
     });
 });
 
+// eneunciado 3 Obtener las razas por pais y todos los datos de premio, raza, perro
+router.get("/paisorigen/:pais_de_origen", async (req, res) => {
+  const pais_de_origen = req.params.pais_de_origen;
+  const results = [];
+  const data = "./data/raza_info.csv";
+  const url2 = "http://premios:4000/api/v2/premios/id/"
+  const url1 = "http://datosperros:3000/api/v2/datosperros/raza/";
+  let result;
+  let datosPerros;
+  let raza;
+  let datospremios;
+  fs.createReadStream(data)
+    .pipe(csv())
+    .on("data", async(data) => {
+      results.push(data);
+      if(pais_de_origen === pais_de_origen){
+        result = results.filter(p => p.pais_de_origen === pais_de_origen)
+      }
+      
+      
+    })
+    .on("end", async() => {
+         raza = result.map(r => r.raza)
+         datosPerros = await fetch(url1 + raza.join(",")).then(response => response.json());
+         const perrosid = datosPerros.data.map(dato => dato.Id);
+          datospremios = await fetch(url2 + perrosid.join(",")).then(response => response.json());
+      const response = {
+        service: "raza",
+        architecture: "microservices",
+        raza: result,
+        perro: datosPerros,
+        premios: datospremios
+        
+      };
+      return res.send(response);
+    });
+});
 
 
 // Exportamos el router
