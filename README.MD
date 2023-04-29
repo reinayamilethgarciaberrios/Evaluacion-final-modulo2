@@ -107,4 +107,5 @@ Este servicio se llama `raza` y utiliza la imagen construida en el directorio `.
     
 ```
 
-Este servicio se llama `nginx` y utiliza la imagen `nginx:latest` de Docker Hub. Se define un mapeo de puertos entre el puerto 8080 del contenedor y el puerto 8080 de la máquina host. También se define un volumen que vincula el archivo `nginx.conf` en el directorio actual con el archivo de configuración de nginx en el contenedor. Por último, se especifica que `nginx` depende de los servicios  `datosPerros`, `premios`y `raza`.
+Falto funcionamiento en el ejercicio 3,
+funcionan 1,2,4
